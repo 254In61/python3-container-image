@@ -11,8 +11,13 @@ RUN apt-get update && apt-get install -y \
     git \
     && apt-get clean
 
-# Install Python packages
-RUN pip3 install --no-cache-dir requests mysql-connector-python flask pytest
+# Create and activate a virtual environment for Python
+# Check out README under issues
+RUN python3 -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+# Install Python packages inside the virtual environment
+RUN pip install --no-cache-dir requests mysql-connector-python flask pytest
    
 # Optional: Set Python3 as the default python command
 RUN ln -sf /usr/bin/python3 /usr/bin/python
