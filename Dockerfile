@@ -34,9 +34,7 @@ WORKDIR /app
 
 # Default command (optional)
 # There can only be one CMD instruction in a Dockerfile or build stage. Only the last one will have an effect.
-# CMD ["python", "--version"]
+CMD ["python", "--version"]
 
-# Clone down the repository && Run the Python script when the container launches
-CMD ["git","clone","-b","develop","https://github.com/254In61/query-countries.git","&&","python3", "./app/scripts/server.py"]
 
 
