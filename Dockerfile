@@ -12,13 +12,8 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean
 
 # Install Python packages
-RUN python3-pip install --no-cache-dir \
-    requests \
-    mysql-connector-python \
-    flask \
-    pytest
+RUN pip3 install --no-cache-dir requests mysql-connector-python flask pytest
    
-
 # Optional: Set Python3 as the default python command
 RUN ln -sf /usr/bin/python3 /usr/bin/python
 
