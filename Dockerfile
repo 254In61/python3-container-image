@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean
 
 # Install Python packages
-RUN pip3 install --no-cache-dir \
+RUN python3-pip install --no-cache-dir \
     requests \
     mysql-connector-python \
     flask \
