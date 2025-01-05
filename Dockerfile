@@ -15,14 +15,9 @@ RUN apt-get update && apt-get install -y \
 RUN pip3 install --no-cache-dir \
     requests \
     mysql-connector-python \
-    ansible \
-    ansible-base \
-    cryptography \
-    Flask \
-    pytest \
-    PyYAML \
-    Werkzeug \
-    yamllint
+    flask \
+    pytest
+   
 
 # Optional: Set Python3 as the default python command
 RUN ln -sf /usr/bin/python3 /usr/bin/python
@@ -41,4 +36,6 @@ WORKDIR /app
 # CMD ["python", "--version"]
 
 # Clone down the repository && Run the Python script when the container launches
-CMD ["git","clone","-b","develop","https://github.com/254In61/k8s-deb-query-app.git","&&","python3", "./k8s-deb-query-app/python-script/db-query.py"]
+CMD ["git","clone","-b","develop","https://github.com/254In61/query-countries.git","&&","python3", "./app/scripts/server.py"]
+
+
