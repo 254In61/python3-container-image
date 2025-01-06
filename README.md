@@ -4,12 +4,8 @@
 
 # Build the Docker Image
 
-- Run the following command in the directory where the Dockerfile is located:
-  $ podman build -t python3 .  
-
-- Avoiding docker because of permission issues :
-  $ docker build -t python3 .
-   ERROR: permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Head "http://%2Fvar%2Frun%2Fdocker.sock/_ping": dial unix /var/run/docker.sock: connect: permission denied
+- Run the script build.sh
+  $ ./build.sh
 
 # noted issues
 # Issue 1
@@ -42,3 +38,40 @@ This prevents system-wide installations of Python packages using pip to avoid co
 
 ## Best solution
 Using a virtual environment is the cleanest and safest approach. It avoids interference with the system Python environment while still allowing you to manage your dependencies independently.
+
+# Keeping container running.
+When you start a container, it usually stops if there’s no long-running process or command running in the foreground. 
+To ensure the container doesn't stop, you can run it with a long-lived process or execute a command that holds the container open.
+
+Here are several ways to start a container that doesn't stop:
+
+1. Run an Interactive Shell : You can start the container with a shell session that keeps running:
+
+   $ podman run -it localhost/python3 /bin/bash
+
+2. Use a Background Process that keeps the container alive.
+   $ podman run -d localhost/python3 tail -f /dev/null
+
+   tail -f /dev/null is a common trick to keep the container running indefinitely.
+
+3. Use a Custom Entrypoint Script
+If you’re building a custom image, add an entrypoint script that keeps the container running. For example, in a Dockerfile:
+
+  FROM ubuntu:20.04
+
+  CMD ["tail", "-f", "/dev/null"]
+
+4. Run a Service or Daemon
+Run a service (e.g., an HTTP server) to keep the container alive:
+  $ podman run -d nginx
+
+5. Keep the Container in Interactive Mode
+Start the container in interactive mode and leave it open:
+  $ podman run -it localhost/python3
+
+
+# Stopping containers
+
+podman stop <container_id>
+
+podman rm <container_id>

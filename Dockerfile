@@ -10,6 +10,9 @@ RUN apt-get update && apt-get install -y \
     python3-pip \
     python3-venv \
     git \
+    curl \
+    mysql-client \
+    libmysqlclient-dev \
     && apt-get clean
 
 # Create and activate a virtual environment for Python
